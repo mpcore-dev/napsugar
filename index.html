@@ -515,7 +515,7 @@
                     </p>
                 </div>
                 <div class="about-image">
-                    <img src="./galeria/IMG_3824.JPG" alt="" style="width: 70%;">
+                    <img src="/galeria/IMG_3824-new.webp" alt="" style="width: 70%;">
                 </div>
             </div>
         </div>
@@ -646,7 +646,7 @@
 
         async function initializeSlideshow() {
             try {
-                const response = await fetch('slideshow/');
+                const response = await fetch('/slideshow/');
                 const html = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
@@ -662,7 +662,7 @@
                     slides = document.querySelectorAll('.slide');
                 } else {
                     slideshowContainer.innerHTML = images.map((img, idx) => 
-                        `<div class="slide ${idx === 0 ? 'active' : ''}" style="background-image: url('slideshow/${img}');"></div>`
+                        `<div class="slide ${idx === 0 ? 'active' : ''}" style="background-image: url('/slideshow/${img}');"></div>`
                     ).join('');
                     slides = document.querySelectorAll('.slide');
                 }
@@ -674,7 +674,7 @@
 
         async function initializeGallery() {
             try {
-                const response = await fetch('galeria/');
+                const response = await fetch('/galeria/');
                 const html = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
@@ -687,7 +687,7 @@
                 const galleryGrid = document.getElementById('gallery-grid');
                 if (images.length > 0) {
                     galleryGrid.innerHTML = images.map(img => 
-                        `<div class="gallery-item" style="background-image: url('galeria/${img}');"></div>`
+                        `<div class="gallery-item" style="background-image: url('/galeria/${img}');"></div>`
                     ).join('');
                 } else {
                     galleryGrid.innerHTML = `
