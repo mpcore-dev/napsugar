@@ -211,12 +211,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-size: cover;
-            background-position: center;
         }
 
         .gallery-item:hover {
             transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .gallery-placeholder {
@@ -375,6 +379,21 @@
             cursor: pointer;
         }
 
+        .loading {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #d4868f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-wrap: wrap;
@@ -415,6 +434,10 @@
             h1 {
                 font-size: 2rem;
             }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
         }
 
         .intro-text {
@@ -438,15 +461,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 5rem;
-            color: #d4868f;
-            opacity: 100;
+            overflow: hidden;
         }
 
-        @media (max-width: 768px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -514,8 +535,8 @@
                         Számunkra a minőség, a frissesség és a személyes figyelem a legfontosabb.
                     </p>
                 </div>
-                <div class="about-image">
-                    <img src="./galeria/IMG_3824-new.webp" alt="" style="width: 70%;">
+                <div class="about-image" id="about-image-container">
+                    <div class="loading"></div>
                 </div>
             </div>
         </div>
@@ -528,7 +549,11 @@
                 data-sk="Pozrite si atmosféru nášho kvetinárstva a niektoré z našich diel">
                 Tekintse meg virágüzletünk hangulatát és néhány alkotásunkat
             </p>
-            <div class="gallery-grid" id="gallery-grid"></div>
+            <div class="gallery-grid" id="gallery-grid">
+                <div style="text-align: center; grid-column: 1/-1;">
+                    <div class="loading"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -541,7 +566,7 @@
             </p>
             <div class="services-grid">
                 <div class="service-card">
-                    <i class="fas fa-bouquet-flowers"></i>
+                    <i class="fas fa-heart"></i>
                     <h3 data-hu="Virágcsokrok" data-sk="Kytice">Virágcsokrok</h3>
                     <p data-hu="Gyönyörű, egyedi csokrok esküvői alkalmakra, születésnapokra, évfordulókra és minden különleges alkalomra"
                         data-sk="Krásne, jedinečné kytice na svadby, narodeniny, výročia a všetky špeciálne príležitosti">
@@ -549,7 +574,7 @@
                     </p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-church"></i>
+                    <i class="fas fa-cross"></i>
                     <h3 data-hu="Gyászdíszek" data-sk="Smútočné vence">Gyászdíszek</h3>
                     <p data-hu="Méltóságteljes koszorúk és kompozíciók a búcsúzás pillanataira"
                         data-sk="Dôstojné vence a kompozície na chvíle rozlúčky">
@@ -557,7 +582,7 @@
                     </p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-gift-card"></i>
+                    <i class="fas fa-gift"></i>
                     <h3 data-hu="Különleges alkalmak" data-sk="Špeciálne príležitosti">Különleges alkalmak</h3>
                     <p data-hu="Anyák napja, Valentin-nap, ballagás - minden ünnepre készülünk"
                         data-sk="Deň matiek, Valentín, promócie - pripravíme kvety na každú oslavu">
@@ -587,7 +612,7 @@
                     </p>
                     <p>
                         <i class="fas fa-phone"></i>
-                        <span id="phone-placeholder">+421918627684</span>
+                        <span>+421 918 627 684</span>
                     </p>
                     <p>
                         <i class="fas fa-clock"></i>
@@ -613,14 +638,14 @@
                         <input type="text" name="name" placeholder="Név / Meno" required data-hu-placeholder="Név" data-sk-placeholder="Meno">
                         <input type="email" name="email" placeholder="E-mail" required>
                         <textarea name="message" placeholder="Üzenet / Správa" required data-hu-placeholder="Üzenet" data-sk-placeholder="Správa"></textarea>
-                        <div class="h-captcha" data-captcha="true"><script src="https://web3forms.com/client/script.js" async defer></script></div>
+                        <div class="h-captcha" data-captcha="true"></div>
                         <button type="submit" data-hu="Üzenet küldése" data-sk="Odoslať správu">Üzenet küldése</button>
                     </form>
                 </div>
             </div>
             
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.1372725216393!2d18.268405716090395!3d47.99262533773113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476b02141ac15ad1%3A0x72c4d4e4663d49a7!2sKvetin%C3%A1rstvo%20NAPSUG%C3%81R%20Vir%C3%A1gbolt!5e1!3m2!1shu!2ssk!4v1763665128238!5m2!1shu!2ssk"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.1372725216393!2d18.268405716090395!3d47.99262533773113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476b02141ac15ad1%3A0x72c4d4e4663d49a7!2sKvetin%C3%A1rstvo%20NAPSUG%C3%81R%20Vir%C3%A1gbolt!5e1!3m2!1shu!2ssk!4v1763665128238!5m2!1shu!2ssk" loading="lazy"></iframe>
             </div>
         </div>
     </section>
@@ -640,67 +665,175 @@
     </footer>
 
     <script>
+        // Get the base path for GitHub Pages
+        const getBasePath = () => {
+            const path = window.location.pathname;
+            const pathParts = path.split('/').filter(p => p);
+            // If deployed to username.github.io/repo-name/, return '/repo-name/'
+            // If deployed to custom domain or username.github.io, return '/'
+            return pathParts.length > 0 && !path.endsWith('.html') ? `/${pathParts[0]}/` : '/';
+        };
+
+        const basePath = getBasePath();
         let currentLang = 'hu';
         let currentSlide = 0;
         let slides = [];
 
-        async function initializeSlideshow() {
-            try {
-                const response = await fetch('./slideshow/');
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const links = doc.querySelectorAll('a');
-                const images = Array.from(links)
-                    .map(a => a.href)
-                    .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
-                    .map(href => href.split('/').pop());
+        // Image optimization: lazy loading and error handling
+        function createOptimizedImage(src, alt = '') {
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.alt = alt;
+            img.onerror = function() {
+                this.style.display = 'none';
+                this.parentElement.innerHTML = '<i class="fas fa-image gallery-placeholder"></i>';
+            };
+            img.onload = function() {
+                this.style.opacity = '0';
+                this.style.transition = 'opacity 0.5s';
+                setTimeout(() => this.style.opacity = '1', 50);
+            };
+            img.src = src;
+            return img;
+        }
 
-                const slideshowContainer = document.getElementById('slideshow');
-                if (images.length === 0) {
-                    slideshowContainer.innerHTML = '<div class="slide active"><div class="slide-content"><h2 data-hu="Üdvözöljük!" data-sk="Vitajte!">Üdvözöljük!</h2><p data-hu="A Napsugár Virágbolt Udvard szívében" data-sk="Kvetinárstvo Napsugár v srdci obce Dvory nad Žitavou">A Napsugár Virágbolt Udvard szívében</p></div></div>';
-                    slides = document.querySelectorAll('.slide');
-                } else {
-                    slideshowContainer.innerHTML = images.map((img, idx) => 
-                        `<div class="slide ${idx === 0 ? 'active' : ''}" style="background-image: url('./slideshow/${img}');"></div>`
-                    ).join('');
-                    slides = document.querySelectorAll('.slide');
+        // Initialize slideshow with GitHub Pages support
+        async function initializeSlideshow() {
+            const slideshowContainer = document.getElementById('slideshow');
+            
+            // Try multiple possible paths for slideshow images
+            const possiblePaths = [
+                `${basePath}slideshow/`,
+                './slideshow/',
+                'slideshow/'
+            ];
+
+            let images = [];
+            
+            // Try to fetch images.json first (recommended approach)
+            for (const path of possiblePaths) {
+                try {
+                    const response = await fetch(`${path}images.json`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        images = data.images.map(img => `${path}${img}`);
+                        break;
+                    }
+                } catch (err) {
+                    console.log(`Could not load images.json from ${path}`);
                 }
-                showSlide(0);
-            } catch (err) {
-                console.log('Slideshow folder not found, using default slides');
+            }
+
+            // Fallback: try to list directory (works on some servers)
+            if (images.length === 0) {
+                for (const path of possiblePaths) {
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            const html = await response.text();
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const links = doc.querySelectorAll('a');
+                            const foundImages = Array.from(links)
+                                .map(a => a.href)
+                                .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
+                                .map(href => href.split('/').pop());
+                            
+                            if (foundImages.length > 0) {
+                                images = foundImages.map(img => `${path}${img}`);
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        console.log(`Could not access ${path}`);
+                    }
+                }
+            }
+
+            // Create slides
+            if (images.length === 0) {
+                // Default fallback slide
+                slideshowContainer.innerHTML = `
+                    <div class="slide active">
+                        <div class="slide-content">
+                            <h2 data-hu="Üdvözöljük!" data-sk="Vitajte!">Üdvözöljük!</h2>
+                            <p data-hu="A Napsugár Virágbolt Udvard szívében" data-sk="Kvetinárstvo Napsugár v srdci obce Dvory nad Žitavou">A Napsugár Virágbolt Udvard szívében</p>
+                        </div>
+                    </div>`;
+            } else {
+                slideshowContainer.innerHTML = images.map((img, idx) => 
+                    `<div class="slide ${idx === 0 ? 'active' : ''}" style="background-image: url('${img}');"></div>`
+                ).join('');
+            }
+            
+            slides = document.querySelectorAll('.slide');
+            if (slides.length > 1) {
+                setInterval(nextSlide, 5000);
             }
         }
 
+        // Initialize gallery with GitHub Pages support
         async function initializeGallery() {
-            try {
-                const response = await fetch('./galeria/');
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const links = doc.querySelectorAll('a');
-                const images = Array.from(links)
-                    .map(a => a.href)
-                    .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
-                    .map(href => href.split('/').pop());
+            const galleryGrid = document.getElementById('gallery-grid');
+            
+            const possiblePaths = [
+                `${basePath}galeria/`,
+                './galeria/',
+                'galeria/'
+            ];
 
-                const galleryGrid = document.getElementById('gallery-grid');
-                if (images.length > 0) {
-                    galleryGrid.innerHTML = images.map(img => 
-                        `<div class="gallery-item" style="background-image: url('./galeria/${img}');"></div>`
-                    ).join('');
-                } else {
-                    galleryGrid.innerHTML = `
-                        <div class="gallery-item"><i class="fas fa-leaf gallery-placeholder"></i></div>
-                        <div class="gallery-item"><i class="fas fa-rose gallery-placeholder"></i></div>
-                        <div class="gallery-item"><i class="fas fa-seedling gallery-placeholder"></i></div>
-                        <div class="gallery-item"><i class="fas fa-spa gallery-placeholder"></i></div>
-                        <div class="gallery-item"><i class="fas fa-heart gallery-placeholder"></i></div>
-                        <div class="gallery-item"><i class="fas fa-gift gallery-placeholder"></i></div>
-                    `;
+            let images = [];
+            
+            // Try to fetch images.json first
+            for (const path of possiblePaths) {
+                try {
+                    const response = await fetch(`${path}images.json`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        images = data.images.map(img => `${path}${img}`);
+                        break;
+                    }
+                } catch (err) {
+                    console.log(`Could not load images.json from ${path}`);
                 }
-            } catch (err) {
-                const galleryGrid = document.getElementById('gallery-grid');
+            }
+
+            // Fallback: try directory listing
+            if (images.length === 0) {
+                for (const path of possiblePaths) {
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            const html = await response.text();
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const links = doc.querySelectorAll('a');
+                            const foundImages = Array.from(links)
+                                .map(a => a.href)
+                                .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
+                                .map(href => href.split('/').pop());
+                            
+                            if (foundImages.length > 0) {
+                                images = foundImages.map(img => `${path}${img}`);
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        console.log(`Could not access ${path}`);
+                    }
+                }
+            }
+
+            // Render gallery
+            if (images.length > 0) {
+                galleryGrid.innerHTML = images.map(img => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.appendChild(createOptimizedImage(img, 'Virágcsokrok'));
+                    return item.outerHTML;
+                }).join('');
+            } else {
+                // Fallback placeholder icons
                 galleryGrid.innerHTML = `
                     <div class="gallery-item"><i class="fas fa-leaf gallery-placeholder"></i></div>
                     <div class="gallery-item"><i class="fas fa-rose gallery-placeholder"></i></div>
@@ -709,6 +842,39 @@
                     <div class="gallery-item"><i class="fas fa-heart gallery-placeholder"></i></div>
                     <div class="gallery-item"><i class="fas fa-gift gallery-placeholder"></i></div>
                 `;
+            }
+        }
+
+        // Initialize about image
+        async function initializeAboutImage() {
+            const container = document.getElementById('about-image-container');
+            const possiblePaths = [
+                `${basePath}galeria/IMG_3824-new.webp`,
+                './galeria/IMG_3824-new.webp',
+                'galeria/IMG_3824-new.webp'
+            ];
+
+            let loaded = false;
+            for (const path of possiblePaths) {
+                try {
+                    const response = await fetch(path, { method: 'HEAD' });
+                    if (response.ok) {
+                        const img = createOptimizedImage(path, 'Napsugár Virágbolt');
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        container.innerHTML = '';
+                        container.appendChild(img);
+                        loaded = true;
+                        break;
+                    }
+                } catch (err) {
+                    console.log(`Could not load image from ${path}`);
+                }
+            }
+
+            if (!loaded) {
+                container.innerHTML = '<i class="fas fa-store" style="font-size: 5rem; color: #d4868f; opacity: 0.3;"></i>';
             }
         }
 
@@ -723,14 +889,19 @@
             showSlide(currentSlide + 1);
         }
 
-        setInterval(nextSlide, 5000);
-
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
             document.getElementById('mainNav').classList.remove('active');
+            
+            // Update URL hash without scrolling
+            if (history.pushState) {
+                history.pushState(null, null, `#${sectionId}`);
+            } else {
+                window.location.hash = sectionId;
+            }
         }
 
         function toggleMenu() {
@@ -768,10 +939,24 @@
             document.title = titles[lang];
         }
 
+        // Handle initial hash navigation
+        function handleInitialHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showSection(hash);
+            }
+        }
+
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializeSlideshow();
             initializeGallery();
+            initializeAboutImage();
+            handleInitialHash();
         });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('hashchange', handleInitialHash);
     </script>
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
